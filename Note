@@ -1,0 +1,52 @@
+MP主键策略
+    MyBatis-Plus默认的主键策略是：ID_WORKER  *全局唯一ID*
+        - 要想主键自增需要配置如下主键策略
+        - - 需要在创建数据表的时候设置主键自增
+          - 实体字段中配置 @TableId(type = IdType.AUTO)
+            @TableId(type = IdType.AUTO)
+            private Long id;
+            源码：
+            public enum IdType {
+                 /**
+                 * 数据库ID自增
+                 */
+                AUTO(0),
+
+                /**
+                 * 该类型为未设置主键类型
+                 */
+                NONE(1),
+
+                /**
+                 * 用户输入ID
+                 * 该类型可以通过自己注册自动填充插件进行填充
+                 */
+                INPUT(2),
+
+                /**
+                 * 全局唯一ID
+                 */
+                ASSIGN_ID(3),
+
+                /**
+                 * 全局唯一ID (UUID)
+                 */
+                ASSIGN_UUID(4),
+
+                /** @deprecated */
+                @Deprecated
+                ID_WORKER(3),
+                /** @deprecated */
+                @Deprecated
+                ID_WORKER_STR(3),
+                /** @deprecated */
+                @Deprecated
+                UUID(4);
+                private final int key;
+                private IdType(int key) {
+                    this.key = key;
+                }
+                public int getKey() {
+                    return this.key;
+                }
+            }
