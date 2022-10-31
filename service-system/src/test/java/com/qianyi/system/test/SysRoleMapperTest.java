@@ -1,11 +1,15 @@
 package com.qianyi.system.test;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.qianyi.model.system.SysRole;
 import com.qianyi.system.mapper.SysRoleMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.management.relation.RoleInfo;
 import java.util.Arrays;
 import java.util.List;
 
@@ -80,6 +84,30 @@ public class SysRoleMapperTest {
         if(nResult > 0){
             System.out.println("删除成功");
         }
+    }
+    /**
+     * 条件查询
+     */
+    @Test
+    public void WrapperQuery(){
+        //创建条件构造器对象
+        QueryWrapper<SysRole> roleWrapper = new QueryWrapper<>();
+        //设置条件
+        //roleWrapper.eq("role_name","张三");
+        roleWrapper.like("description", "普通");
+        //调用查询方法
+        List<SysRole> roleList = sysRoleMapper.selectList(roleWrapper);
+        System.out.println(roleList);
+    }
+    /**
+     * 条件删除
+     */
+    @Test
+    public void WrapperDelete(){
+        QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<SysRole> wrapper = queryWrapper.eq("role_name", "李四");
+        int delete = sysRoleMapper.delete(wrapper);
+        System.out.println("删除成功");
     }
 }
 
