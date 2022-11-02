@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianyi.system.mapper.SysRoleMapper">
+<!--条件分页查询-->
+    <resultMap id="rolePage" type="com.qianyi.model.system.SysRole" autoMapping="true"/>
+    <select id="selectPage" resultMap="rolePage">
+        SELECT id , role_name , role_code , description , is_deleted , create_time , update_time
+        FROM sys_role
+        <where>
+            <if test="vo.roleName != null and vo.roleName != ''" >
+            role_name LIKE CONCAT('%',#{vo.roleName},'%')
+            </if>
+            AND is_deleted = 0
+        </where>
+        ORDER BY id DESC
+    </select>
+</mapper>

@@ -6,4 +6,10 @@ Mybatis-Plus入门
 增加Controller层
 Swagger 集成knife4j实现 Web API服务。
 定义统一的接口返回结果类
+条件分页查询
+    配置分页插件
+    分页controller
+    service
+    mapper
+    mapper.xml动态sql语句
 

@@ -1,10 +1,14 @@
 package com.qianyi.system.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qianyi.common.result.Result;
 import com.qianyi.model.system.SysRole;
+import com.qianyi.model.vo.SysRoleQueryVo;
 import com.qianyi.system.service.SysRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,5 +46,25 @@ public class SysRoleController {
         }else {
             return Result.fail();
         }
+    }
+
+    /**
+     * 条件分页查询角色接口
+     * @return
+     */
+    @ApiOperation("条件查询角色接口")
+    @GetMapping("/{page}/{limit}")
+    public Result WrapperQueryPage(
+            @ApiParam(name = "page", value = "当前页码", required = true)
+            @PathVariable Long page,
+            @ApiParam(name = "limit", value= "每页记录数", required = true)
+            @PathVariable Long limit,
+            @ApiParam(name = "roleQueryVo", value = "条件对象", required = true)
+            SysRoleQueryVo sysRoleQueryVo){
+        //创建MybatisPlus分页对象
+        Page<Object> pageParam = new Page<>(page, limit);
+        IPage<SysRole> pageModel = sysRoleService.selectPage(pageParam, sysRoleQueryVo);
+        Result<IPage<SysRole>> result = Result.ok(pageModel);
+        return  result;
     }
 }
