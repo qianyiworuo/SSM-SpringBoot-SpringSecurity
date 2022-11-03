@@ -12,4 +12,8 @@ Swagger 集成knife4j实现 Web API服务。
     service
     mapper
     mapper.xml动态sql语句
+新增
+修改
+批量删除
+异常处理
 

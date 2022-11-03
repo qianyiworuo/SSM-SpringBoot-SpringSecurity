@@ -1,5 +1,6 @@
 server:
   port: 8800
+  max-http-header-size: 102400
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 查看日志
