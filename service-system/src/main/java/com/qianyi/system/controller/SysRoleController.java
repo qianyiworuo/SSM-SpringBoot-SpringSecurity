@@ -28,11 +28,11 @@ public class SysRoleController {
     @ApiOperation("查询所有角色接口")
     @GetMapping("/findAll")
     public Result findAll(){
-        try{
-            int a = 10/0;
-        }catch (QianyiException e){
-            throw new QianyiException(1998,"自定义异常处理");
-        }
+//        try{
+//            int a = 10/0;
+//        }catch (QianyiException e){
+//            throw new QianyiException(1998,"自定义异常处理");
+//        }
         List<SysRole> roleList = sysRoleService.list();
         return Result.ok(roleList);
     }
