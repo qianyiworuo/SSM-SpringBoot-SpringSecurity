@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qianyi.common.result.Result;
 import com.qianyi.model.system.SysRole;
+import com.qianyi.model.vo.AssginRoleVo;
 import com.qianyi.model.vo.SysRoleQueryVo;
 import com.qianyi.system.exception.QianyiException;
 import com.qianyi.system.service.SysRoleService;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
 @Api(tags = "角色管理接口")
 @RestController
 @RequestMapping("/admin/system/sysRole")
@@ -128,5 +131,19 @@ public class SysRoleController {
         }else {
             return Result.fail();
         }
+    }
+    @ApiOperation("根据用户获取角色数据接口")
+    @GetMapping("/toAssign/{userId}")
+    public Result toAssign(@PathVariable Long userId){
+      Map<String, Object> roleMap = sysRoleService.getRoleByUserId(userId);
+      return Result.ok(roleMap);
+    }
+    @ApiOperation("根据用户分配角色接口")
+    @GetMapping("doAssign")
+    public Result doAssign(@PathVariable AssginRoleVo assginRoleVo){
+        sysRoleService.doAssign(assginRoleVo);
+
+
+        return Result.ok();
     }
 }

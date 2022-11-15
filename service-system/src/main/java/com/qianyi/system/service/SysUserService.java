@@ -1,7 +1,10 @@
 package com.qianyi.system.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qianyi.model.system.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qianyi.model.vo.SysUserQueryVo;
 
 /**
  * <p>
@@ -13,4 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SysUserService extends IService<SysUser> {
 
+    IPage<SysUser> selectPage(Page<Object> params, SysUserQueryVo sysUserQueryVo);
+
+    boolean updateStatus(Long id, Integer status);
 }
