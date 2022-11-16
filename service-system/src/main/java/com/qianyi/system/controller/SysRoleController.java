@@ -139,11 +139,9 @@ public class SysRoleController {
       return Result.ok(roleMap);
     }
     @ApiOperation("根据用户分配角色接口")
-    @GetMapping("doAssign")
-    public Result doAssign(@PathVariable AssginRoleVo assginRoleVo){
+    @PostMapping("doAssign")
+    public Result doAssign(@RequestBody AssginRoleVo assginRoleVo){
         sysRoleService.doAssign(assginRoleVo);
-
-
         return Result.ok();
     }
 }
