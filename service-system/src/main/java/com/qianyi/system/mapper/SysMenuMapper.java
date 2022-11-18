@@ -1,7 +1,9 @@
 package com.qianyi.system.mapper;
 
-import com.qianyi.system.entity.SysMenu;
+import com.qianyi.model.system.SysMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * <p>
@@ -11,6 +13,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author qianyi
  * @since 2022-11-18
  */
+@Repository
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
 }

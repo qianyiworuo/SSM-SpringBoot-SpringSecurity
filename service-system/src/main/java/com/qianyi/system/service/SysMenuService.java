@@ -1,6 +1,6 @@
 package com.qianyi.system.service;
 
-import com.qianyi.system.entity.SysMenu;
+import com.qianyi.model.system.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
