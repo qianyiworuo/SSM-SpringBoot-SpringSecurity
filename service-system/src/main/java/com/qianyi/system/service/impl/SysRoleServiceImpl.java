@@ -56,19 +56,17 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Override
     public void doAssign(AssginRoleVo assginRoleVo) {
         //1.根据用户id删除用户已分配的角色id
-        String userId = assginRoleVo.getUserId();
-        Long lUserId = Long.valueOf(userId);
+        Long userId = assginRoleVo.getUserId();
         QueryWrapper<SysUserRole> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_id", lUserId);
+        wrapper.eq("user_id", userId);
         sysUserRoleMapper.delete(wrapper);
         //2.获取当前用户要的分配的角色id集合
-        List<String> roleIdList = assginRoleVo.getRoleIdList();
+        List<Long> roleIdList = assginRoleVo.getRoleIdList();
         //3.遍历集合，将角色id插用户角色表中
-        for (String RoleId: roleIdList) {
-            Long lRoleId = Long.valueOf(RoleId);
+        for (Long roleId: roleIdList) {
             SysUserRole sysUserRole = new SysUserRole();
-            sysUserRole.setRoleId(lRoleId);
-            sysUserRole.setUserId(lUserId);
+            sysUserRole.setRoleId(roleId);
+            sysUserRole.setUserId(userId);
             sysUserRoleMapper.insert(sysUserRole);
         }
     }

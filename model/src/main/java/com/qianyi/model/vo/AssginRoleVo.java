@@ -12,9 +12,9 @@ import java.util.List;
 public class AssginRoleVo {
 
     @ApiModelProperty(value = "用户id")
-    private String userId;
+    private Long userId;
 
     @ApiModelProperty(value = "角色id列表")
-    private List<String> roleIdList;
+    private List<Long> roleIdList;
 
 }
