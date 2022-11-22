@@ -1,10 +1,16 @@
 package com.qianyi.system.controller;
 
 
+import com.qianyi.common.result.Result;
+import com.qianyi.model.system.SysMenu;
+import com.qianyi.system.service.SysMenuService;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.RequestMapping;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -16,8 +22,62 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "菜单管理接口")
 @RestController
-@RequestMapping("/system/sys-menu")
+@RequestMapping("/admin/system/sysMenu")
 public class SysMenuController {
+    @Autowired
+    private SysMenuService sysMenuService;
+    @ApiOperation("查询菜单列表(树形)接口")
+    @GetMapping("/findNodes")
+    public Result findNodes(){
+       List<SysMenu> menuList = sysMenuService.findNodes();
 
+        return Result.ok(menuList);
+    }
+    @ApiOperation("添加菜单接口")
+    @PostMapping("/save")
+    public Result saveMenu(@RequestBody SysMenu sysMenu){
+        boolean isSuccess = sysMenuService.save(sysMenu);
+        if (isSuccess){
+            return Result.ok();
+        }else {
+            return Result.fail();
+        }
+    }
+    @ApiOperation("查询单个菜单接口")
+    @GetMapping("/GetById/{id}")
+    public Result GetById(@PathVariable Long id){
+        SysMenu sysMenu = sysMenuService.getById(id);
+        return Result.ok(sysMenu);
+    }
+    @ApiOperation("修改单个菜单接口")
+    @PutMapping("/updateById")
+    public Result updateById(@RequestBody SysMenu sysMenu){
+        boolean isSuccess = sysMenuService.updateById(sysMenu);
+        if (isSuccess){
+            return Result.ok();
+        }else {
+            return Result.fail();
+        }
+    }
+    @ApiOperation("批量删除菜单接口")
+    @DeleteMapping("/remove/{ids}")
+    public Result removeIds(@PathVariable List<SysMenu> ids){
+        boolean isSuccess = sysMenuService.removeByIds(ids);
+        if (isSuccess){
+            return Result.ok();
+        }else {
+            return Result.fail();
+        }
+    }
+    @ApiOperation("删除菜单接口")
+    @DeleteMapping("/remove/{id}")
+    public Result removeById(@PathVariable Long id){
+        boolean isSuccess = sysMenuService.removeById(id);
+        if (isSuccess){
+            return Result.ok();
+        }else {
+            return Result.fail();
+        }
+    }
 }
 
