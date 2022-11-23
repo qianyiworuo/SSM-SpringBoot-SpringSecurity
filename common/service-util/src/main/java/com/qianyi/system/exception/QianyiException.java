@@ -41,5 +41,6 @@ public class QianyiException extends RuntimeException{
     }
 
     public void printStackTrace() {
+
     }
 }

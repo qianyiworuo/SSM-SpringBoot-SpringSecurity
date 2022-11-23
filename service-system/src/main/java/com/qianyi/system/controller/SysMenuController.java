@@ -60,7 +60,7 @@ public class SysMenuController {
         }
     }
     @ApiOperation("批量删除菜单接口")
-    @DeleteMapping("/remove/{ids}")
+    @DeleteMapping("/batchRemove/{ids}")
     public Result removeIds(@PathVariable List<SysMenu> ids){
         boolean isSuccess = sysMenuService.removeByIds(ids);
         if (isSuccess){
@@ -72,7 +72,7 @@ public class SysMenuController {
     @ApiOperation("删除菜单接口")
     @DeleteMapping("/remove/{id}")
     public Result removeById(@PathVariable Long id){
-        boolean isSuccess = sysMenuService.removeById(id);
+        boolean isSuccess = sysMenuService.removeMenuById(id);
         if (isSuccess){
             return Result.ok();
         }else {

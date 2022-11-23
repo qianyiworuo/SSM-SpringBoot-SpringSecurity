@@ -16,4 +16,6 @@ import java.util.List;
 public interface SysMenuService extends IService<SysMenu> {
 
     List<SysMenu> findNodes();
+
+    boolean removeMenuById(Long id);
 }

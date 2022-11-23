@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qianyi.model.system.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.qianyi.model.vo.SysRoleQueryVo;
 import com.qianyi.model.vo.SysUserQueryVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * <p>
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Repository
 public interface SysUserMapper extends BaseMapper<SysUser> {
-    IPage<SysUser> selectPage(Page<Object> params, @Param("vo")SysUserQueryVo sysUserQueryVo);
+    //条件分页查询
+    IPage<SysUser> selectPage(Page<Object> pageParam, @Param("vo") SysUserQueryVo sysUserQueryVo);
 
 }
