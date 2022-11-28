@@ -1,7 +1,7 @@
 package com.qianyi.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.qianyi.common.util.MenuHelper;
+import com.qianyi.common.utils.MenuHelper;
 import com.qianyi.model.system.SysMenu;
 import com.qianyi.system.exception.QianyiException;
 import com.qianyi.system.mapper.SysMenuMapper;
@@ -24,24 +24,28 @@ import java.util.List;
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService {
     @Autowired
     private SysMenuMapper sysMenuMapper;
-//菜单列表
+/**
+ * 菜单列表
+ */
     @Override
     public List<SysMenu> findNodes() {
-        //获取所有菜单信息
-        List<SysMenu> sysMenuList = sysMenuMapper.selectList(null);
-        //将菜单信息传入树形转化工具类中
-        List<SysMenu> treeList = MenuHelper.buildTree(sysMenuList);
-        return treeList;
+        //获取所有菜单
+        List<SysMenu> menuList = sysMenuMapper.selectList(null);
+        //转换菜单数据
+        List<SysMenu> ResultList = MenuHelper.buildTree(menuList);
+        return ResultList;
     }
-
+/**
+ * 删除菜单列表
+ */
     @Override
     public boolean removeMenuById(Long id) {
-        //条件查询菜单下是否有子菜单
+        //判断菜单下是否还有子菜单
         QueryWrapper<SysMenu> wrapper = new QueryWrapper<>();
-        wrapper.eq("parent_id", id);
+        wrapper.eq("parent_id" , id);
         Integer count = sysMenuMapper.selectCount(wrapper);
         if(count > 0){
-            throw new QianyiException(201, "请先删除子菜单！");
+            throw new QianyiException(201, "请先删除子菜单");
         }
         int nCount = sysMenuMapper.deleteById(id);
         if(nCount > 0){

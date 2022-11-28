@@ -44,8 +44,8 @@ public class SysMenuController {
         }
     }
     @ApiOperation("查询单个菜单接口")
-    @GetMapping("/GetById/{id}")
-    public Result GetById(@PathVariable Long id){
+    @GetMapping("/getById/{id}")
+    public Result getById(@PathVariable Long id){
         SysMenu sysMenu = sysMenuService.getById(id);
         return Result.ok(sysMenu);
     }
@@ -60,7 +60,7 @@ public class SysMenuController {
         }
     }
     @ApiOperation("批量删除菜单接口")
-    @DeleteMapping("/batchRemove/{ids}")
+    @DeleteMapping("/removeIds/{ids}")
     public Result removeIds(@PathVariable List<SysMenu> ids){
         boolean isSuccess = sysMenuService.removeByIds(ids);
         if (isSuccess){

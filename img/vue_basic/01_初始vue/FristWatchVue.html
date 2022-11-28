@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初识Vue</title>
+    <!--引入开发版vue 2.0-->
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!--准备一个容器 {{插值语法}}-->
+    <div id="demo">
+        <h1>王德发，{{name}}!</h1>
+
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false//阻止vue启动时产生提示
+        //创建vue对象
+        new Vue({
+            el:'#demo',//el指定当前vue实例为哪个容器服务，值通常为css选择器字符串。挂载点
+            data: {//data存储数据，供el指定的容器使用
+                name: '栓Q'
+            }
+        })
+    </script>
+    
+</body>
+</html> 

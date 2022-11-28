@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据绑定</title>
+    <!--引入开发版vue 2.0-->
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+     <!--准备一个容器-->
+     <div id="root">
+        单向数据绑定：<input type="text" :value="name"></input>
+        <hr></hr>
+        <!--v-model只能用于表单类元素(输入类元素有value属性的元素)中-->
+        双向数据绑定：<input type="text" v-model:value="message"></input>
+
+     </div>
+     <script type="text/javascript">
+       const v = new Vue({
+            //el: '#root',//el第一种写法
+            // data: {//data第一种写法
+            //     name: '王德发123',
+            //     message: '厚礼蟹123'
+            // }
+            data(){//data第二种写法
+                return{
+                    name: '王德发123',
+                    message: '厚礼蟹123'
+                }
+            }
+        })
+        v.$mount('#root')//el第二种写法
+
+     </script>
+    
+</body>
+</html>

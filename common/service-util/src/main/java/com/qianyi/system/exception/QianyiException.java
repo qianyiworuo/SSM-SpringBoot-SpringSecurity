@@ -1,7 +1,6 @@
 package com.qianyi.system.exception;
 
-import com.qianyi.common.result.Result;
-import com.qianyi.common.result.ResultCodeEnum;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,6 +39,7 @@ public class QianyiException extends RuntimeException{
                 '}';
     }
 
+    @Override
     public void printStackTrace() {
 
     }
