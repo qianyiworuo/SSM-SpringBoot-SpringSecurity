@@ -26,6 +26,7 @@ import java.util.List;
 public class SysMenuController {
     @Autowired
     private SysMenuService sysMenuService;
+
     @ApiOperation("查询菜单列表(树形)接口")
     @GetMapping("/findNodes")
     public Result findNodes(){
@@ -78,6 +79,12 @@ public class SysMenuController {
         }else {
             return Result.fail();
         }
+    }
+    @ApiOperation("根据角色查询菜单接口")
+    @GetMapping("/toAssign/{roleId}")
+    public Result toAssign(@PathVariable Long roleId){
+        List<SysMenu> list = sysMenuService.findSysMenuByRoleId(roleId);
+        return Result.ok(list);
     }
 }
 

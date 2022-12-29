@@ -18,4 +18,6 @@ public interface SysMenuService extends IService<SysMenu> {
     List<SysMenu> findNodes();
 
     boolean removeMenuById(Long id);
+
+    List<SysMenu> findSysMenuByRoleId(Long roleId);
 }
