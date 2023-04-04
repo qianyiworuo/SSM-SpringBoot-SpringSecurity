@@ -3,6 +3,7 @@ package com.qianyi.system.controller;
 
 import com.qianyi.common.result.Result;
 import com.qianyi.model.system.SysMenu;
+import com.qianyi.model.vo.AssginMenuVo;
 import com.qianyi.system.service.SysMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -85,6 +86,12 @@ public class SysMenuController {
     public Result toAssign(@PathVariable Long roleId){
         List<SysMenu> list = sysMenuService.findSysMenuByRoleId(roleId);
         return Result.ok(list);
+    }
+    @ApiOperation("根据角色保存菜单接口")
+    @PostMapping("/doAssign")
+    public Result doAssign(@RequestBody AssginMenuVo assginMenuVo){
+        sysMenuService.doAssign(assginMenuVo);
+        return Result.ok();
     }
 }
 

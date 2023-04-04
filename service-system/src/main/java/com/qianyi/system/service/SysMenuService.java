@@ -2,6 +2,7 @@ package com.qianyi.system.service;
 
 import com.qianyi.model.system.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qianyi.model.vo.AssginMenuVo;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface SysMenuService extends IService<SysMenu> {
     boolean removeMenuById(Long id);
 
     List<SysMenu> findSysMenuByRoleId(Long roleId);
+
+    void doAssign(AssginMenuVo assginMenuVo);
 }

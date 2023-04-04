@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.qianyi.common.utils.MenuHelper;
 import com.qianyi.model.system.SysMenu;
 import com.qianyi.model.system.SysRoleMenu;
+import com.qianyi.model.vo.AssginMenuVo;
 import com.qianyi.system.exception.QianyiException;
 import com.qianyi.system.mapper.SysMenuMapper;
 import com.qianyi.system.mapper.SysRoleMenuMapper;
@@ -27,6 +28,8 @@ import java.util.List;
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService {
     @Autowired
     private SysMenuMapper sysMenuMapper;
+    //需要分别注入
+    @Autowired
     private SysRoleMenuMapper sysRoleMenuMapper;
 /**
  * 菜单列表
@@ -74,6 +77,8 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         //2.根据roleId查询角色已经分配的菜单列表
         LambdaQueryWrapper<SysRoleMenu> lambdaQueryWrapper1 = new LambdaQueryWrapper<>();
         lambdaQueryWrapper1.eq(SysRoleMenu::getRoleId, roleId);
+//        QueryWrapper<SysRoleMenu> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("role_id", roleId);
         List<SysRoleMenu> roleMenuList = sysRoleMenuMapper.selectList(lambdaQueryWrapper1);
         //3.根据第二步获取角色分配的的菜单id
         for (SysRoleMenu sysRoleMenu: roleMenuList) {
@@ -89,5 +94,23 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         //5.转换成树形结构MenuHelper方法
         List<SysMenu> menus = MenuHelper.buildTree(menuList);
         return menus;
+    }
+
+    @Override
+    public void doAssign(AssginMenuVo assginMenuVo) {
+        //1.根据RoleId删除角色所分配的所有菜单
+        Long roleId = assginMenuVo.getRoleId();
+        LambdaQueryWrapper<SysRoleMenu> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(SysRoleMenu::getRoleId, roleId);
+        sysRoleMenuMapper.delete(lambdaQueryWrapper);
+        //2.获取当前用户要的分配的菜单id集合
+        List<Long> menuIdList = assginMenuVo.getMenuIdList();
+        //循环menuId插入角色菜单表中
+        for (Long menuId : menuIdList) {
+            SysRoleMenu sysRoleMenu = new SysRoleMenu();
+            sysRoleMenu.setMenuId(menuId);
+            sysRoleMenu.setRoleId(roleId);
+            sysRoleMenuMapper.insert(sysRoleMenu);
+        }
     }
 }
