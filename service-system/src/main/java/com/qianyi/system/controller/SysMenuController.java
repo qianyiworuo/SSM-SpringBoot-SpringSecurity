@@ -87,7 +87,8 @@ public class SysMenuController {
         List<SysMenu> list = sysMenuService.findSysMenuByRoleId(roleId);
         return Result.ok(list);
     }
-    @ApiOperation("根据角色保存菜单接口")
+
+    @ApiOperation("给角色分配权限接口")
     @PostMapping("/doAssign")
     public Result doAssign(@RequestBody AssginMenuVo assginMenuVo){
         sysMenuService.doAssign(assginMenuVo);

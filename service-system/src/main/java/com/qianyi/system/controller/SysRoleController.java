@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qianyi.common.result.Result;
 import com.qianyi.model.system.SysRole;
+import com.qianyi.model.vo.AssginMenuVo;
 import com.qianyi.model.vo.AssginRoleVo;
 import com.qianyi.model.vo.SysRoleQueryVo;
 import com.qianyi.system.exception.QianyiException;
@@ -142,8 +143,6 @@ public class SysRoleController {
     @PostMapping("doAssign")
     public Result doAssign(@RequestBody AssginRoleVo assginRoleVo){
         sysRoleService.doAssign(assginRoleVo);
-
-
         return Result.ok();
     }
 }

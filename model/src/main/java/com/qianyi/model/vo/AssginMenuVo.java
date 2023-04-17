@@ -7,7 +7,7 @@ import lombok.Data;
 
 import java.util.List;
 
-@ApiModel(description = "分配菜单")
+@ApiModel(description = "分配权限")
 @Data
 public class AssginMenuVo {
 

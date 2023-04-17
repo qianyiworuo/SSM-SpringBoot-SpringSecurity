@@ -3,7 +3,6 @@ package com.qianyi.system.mapper;
 import com.qianyi.model.system.SysMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * <p>
