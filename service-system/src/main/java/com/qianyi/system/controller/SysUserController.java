@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qianyi.common.result.Result;
+import com.qianyi.common.utils.MD5;
 import com.qianyi.model.system.SysUser;
 import com.qianyi.model.vo.SysUserQueryVo;
 import com.qianyi.system.service.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +46,9 @@ public class SysUserController {
     @ApiOperation("新增用户接口")
     @PostMapping("/save")
     public Result saveUser(@RequestBody SysUser sysUser){
+        //把输入的用户密码进行MD5加密
+        String md5Upper = MD5.MD5Upper(sysUser.getPassword());
+        sysUser.setPassword(md5Upper);
         boolean isSave = sysUserService.save(sysUser);
         if(isSave){
             return Result.ok();
