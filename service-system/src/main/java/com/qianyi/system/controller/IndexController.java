@@ -1,13 +1,12 @@
 package com.qianyi.system.controller;
 
 import com.qianyi.common.result.Result;
+import com.qianyi.model.vo.LoginVo;
 import com.qianyi.system.service.SysRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -15,6 +14,7 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/admin/system/index")
 public class IndexController {
+    @Autowired
     private SysRoleService sysRoleService;
 
     /**
@@ -23,7 +23,17 @@ public class IndexController {
      */
     @ApiOperation("登录接口")
     @PostMapping("login")
-    public Result login(){
+    public Result login(@RequestBody LoginVo loginVo){
+        //1.根据username查询数据
+
+
+        //2.数据是否为空
+
+        //3.判断密码是否正确
+
+        //4.判断用户是否可用
+
+        //5.根据userid和username生成token字符串，通过map返回
         //{"code":20000,"data":{"token":"admin-token"}}
         HashMap<String, Object> loginMap = new HashMap<>();
         loginMap.put("token", "admin-token");
