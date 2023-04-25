@@ -1,8 +1,13 @@
 package com.qianyi.system.controller;
 
 import com.qianyi.common.result.Result;
+import com.qianyi.common.result.ResultCodeEnum;
+import com.qianyi.common.utils.JwtHelper;
+import com.qianyi.common.utils.MD5;
+import com.qianyi.model.system.SysUser;
 import com.qianyi.model.vo.LoginVo;
-import com.qianyi.system.service.SysRoleService;
+import com.qianyi.system.exception.QianyiException;
+import com.qianyi.system.service.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +20,7 @@ import java.util.HashMap;
 @RequestMapping("/admin/system/index")
 public class IndexController {
     @Autowired
-    private SysRoleService sysRoleService;
+    private SysUserService sysUserService;
 
     /**
      * 登录接口
@@ -25,18 +30,27 @@ public class IndexController {
     @PostMapping("login")
     public Result login(@RequestBody LoginVo loginVo){
         //1.根据username查询数据
-
+        SysUser sysUser = sysUserService.getByUsername(loginVo.getUsername());
 
         //2.数据是否为空
-
+        if(sysUser == null){
+            throw new QianyiException(ResultCodeEnum.ACCOUNT_ERROR);
+        }
         //3.判断密码是否正确
-
+        String sPwd = MD5.MD5Upper(loginVo.getPassword());
+        if(!sPwd.equals(sysUser.getPassword())){
+            throw new QianyiException(ResultCodeEnum.PASSWORD_ERROR);
+        }
         //4.判断用户是否可用
-
+        if(sysUser.getStatus().intValue() == 0){
+            throw new QianyiException(ResultCodeEnum.ACCOUNT_STOP);
+        }
         //5.根据userid和username生成token字符串，通过map返回
+
         //{"code":20000,"data":{"token":"admin-token"}}
         HashMap<String, Object> loginMap = new HashMap<>();
-        loginMap.put("token", "admin-token");
+        loginMap.put("token", JwtHelper.createToken(sysUser.getId(),sysUser.getUsername()));
+        //loginMap.put("token", "admin-token");
         return Result.ok(loginMap);
     }
 

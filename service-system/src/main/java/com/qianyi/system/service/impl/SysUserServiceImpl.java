@@ -1,5 +1,6 @@
 package com.qianyi.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -8,10 +9,13 @@ import com.qianyi.model.vo.SysRoleQueryVo;
 import com.qianyi.model.vo.SysUserQueryVo;
 import com.qianyi.system.mapper.SysUserMapper;
 import com.qianyi.system.service.SysUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
+    @Autowired
+    SysUserMapper sysUserMapper;
     @Override
     public IPage<SysUser> selectPage(Page<Object> params, SysUserQueryVo sysUserQueryVo) {
         IPage<SysUser> pageModel = baseMapper.selectPage(params, sysUserQueryVo);
@@ -28,5 +32,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }else {
             return false;
         }
+    }
+
+    @Override
+    public SysUser getByUsername(String username) {
+        LambdaQueryWrapper<SysUser> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(SysUser::getUsername, username);
+        SysUser sysUser = sysUserMapper.selectOne(lambdaQueryWrapper);
+        return sysUser;
     }
 }

@@ -1,6 +1,7 @@
 package com.qianyi.system.exception;
 
 
+import com.qianyi.common.result.ResultCodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class QianyiException extends RuntimeException{
     private Integer code;
     private String message;
+
     /**
      * 通过状态码和错误消息创建异常对象
      * @param code
@@ -25,11 +27,11 @@ public class QianyiException extends RuntimeException{
      * 接收枚举类型对象
      * //@param resultCodeEnum
      */
-//    public QianyiException(ResultCodeEnum resultCodeEnum) {
-//        super(resultCodeEnum.getMessage());
-//        this.code = resultCodeEnum.getCode();
-//        this.message = resultCodeEnum.getMessage();
-//    }
+    public QianyiException(ResultCodeEnum resultCodeEnum) {
+        super(resultCodeEnum.getMessage());
+        this.code = resultCodeEnum.getCode();
+        this.message = resultCodeEnum.getMessage();
+    }
 
     @Override
     public String toString() {
