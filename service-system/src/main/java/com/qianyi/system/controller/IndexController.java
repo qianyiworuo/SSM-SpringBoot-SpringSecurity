@@ -13,7 +13,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.Map;
 
 @Api(tags = "登录主页接口")
 @RestController
@@ -60,13 +63,19 @@ public class IndexController {
      */
     @ApiOperation("获取用户信息接口")
     @GetMapping("info")
-    public Result info(){
+    public Result info(HttpServletRequest request){
+        //获取请求头token字符串
+        String token = request.getHeader("token");
+        //从token字符串获取用户名称（username or id）
+        String username = JwtHelper.getUsername(token);
+        //根据用户名称获取用户信息（基本信息、菜单权限、按钮权限数据）
+        Map<String, Object> infoMap = sysUserService.getUserInfo(username);
         //{"code":20000,
         // "data":{"roles":["admin"],
         // "introduction":"I am a super administrator",
         // "avatar":"https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
         // "name":"Super Admin"}}
-        HashMap<String, Object> infoMap = new HashMap<>();
+        //HashMap<String, Object> infoMap = new HashMap<>();
         infoMap.put("roles","[admin]");
         infoMap.put("introduction","厚礼蟹，王德发");
         infoMap.put("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");

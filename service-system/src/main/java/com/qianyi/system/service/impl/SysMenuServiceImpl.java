@@ -6,6 +6,7 @@ import com.qianyi.common.utils.MenuHelper;
 import com.qianyi.model.system.SysMenu;
 import com.qianyi.model.system.SysRoleMenu;
 import com.qianyi.model.vo.AssginMenuVo;
+import com.qianyi.model.vo.RouterVo;
 import com.qianyi.system.exception.QianyiException;
 import com.qianyi.system.mapper.SysMenuMapper;
 import com.qianyi.system.mapper.SysRoleMenuMapper;
@@ -112,5 +113,16 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             sysRoleMenu.setRoleId(roleId);
             sysRoleMenuMapper.insert(sysRoleMenu);
         }
+    }
+
+    @Override
+    public List<RouterVo> getUserMenuList(Long userId) {
+        //1.
+        return null;
+    }
+
+    @Override
+    public List<String> getUserButtonList(Long userId) {
+        return null;
     }
 }
