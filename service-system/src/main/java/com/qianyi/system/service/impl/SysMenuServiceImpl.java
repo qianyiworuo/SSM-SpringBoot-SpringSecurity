@@ -3,6 +3,7 @@ package com.qianyi.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.qianyi.common.utils.MenuHelper;
+import com.qianyi.common.utils.RouterHelper;
 import com.qianyi.model.system.SysMenu;
 import com.qianyi.model.system.SysRoleMenu;
 import com.qianyi.model.vo.AssginMenuVo;
@@ -117,8 +118,21 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public List<RouterVo> getUserMenuList(Long userId) {
-        //1.
-        return null;
+        List<SysMenu> sysMenuList = null;
+        //1.超级管理员admin账号为：1
+        if(userId.intValue() == 1){
+            LambdaQueryWrapper<SysMenu> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            LambdaQueryWrapper<SysMenu> queryWrapperOrderByAsc = lambdaQueryWrapper.eq(SysMenu::getStatus, 1).orderByAsc(SysMenu::getSortValue);
+            sysMenuList = sysMenuMapper.selectList(queryWrapperOrderByAsc);
+        }
+        else {
+            sysMenuList = sysMenuMapper.findMenuLitById(userId);
+        }
+        //2.构建树形结构
+        List<SysMenu> menuList = MenuHelper.buildTree(sysMenuList);
+        //3.构建路由树形结构
+        List<RouterVo> routerVoList = RouterHelper.buildRouters(menuList);
+        return routerVoList;
     }
 
     @Override
