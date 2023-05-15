@@ -4,7 +4,7 @@
 <!--根据userId获取用户路由信息-->
     <resultMap id="sysMenuMap" type="com.qianyi.model.system.SysMenu" autoMapping="true"/>
 
-    <select id="findMenuLitById" resultMap="sysMenMap">
+    <select id="findMenuLitById" resultMap="sysMenuMap">
         select
             distinct
             sm.id,sm.parent_id,sm.name,
