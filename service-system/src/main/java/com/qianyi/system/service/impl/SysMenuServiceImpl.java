@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -137,6 +138,23 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public List<String> getUserButtonList(Long userId) {
-        return null;
+        List<SysMenu> sysMenuList = null;
+        if(userId.intValue() == 1){
+            LambdaQueryWrapper<SysMenu> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(SysMenu::getStatus, 1).orderByAsc(SysMenu::getSortValue);
+            sysMenuList = sysMenuMapper.selectList(lambdaQueryWrapper);
+        }
+        else {
+            sysMenuList = sysMenuMapper.findMenuLitById(userId);
+        }
+        ArrayList<String> menuArrayList = new ArrayList<>();
+        if(sysMenuList != null && sysMenuList.size() > 0){
+            for (SysMenu sysMenu : sysMenuList) {
+                if(sysMenu.getType() == 2){
+                    menuArrayList.add(sysMenu.getPerms());
+                }
+            }
+        }
+        return menuArrayList;
     }
 }
