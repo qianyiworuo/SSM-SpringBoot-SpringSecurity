@@ -40,7 +40,7 @@ public class IndexController {
             throw new QianyiException(ResultCodeEnum.ACCOUNT_ERROR);
         }
         //3.判断密码是否正确
-        String sPwd = MD5.MD5Upper(loginVo.getPassword());
+        String sPwd = MD5.MD5Lower(loginVo.getPassword());
         if(!sPwd.equals(sysUser.getPassword())){
             throw new QianyiException(ResultCodeEnum.PASSWORD_ERROR);
         }
