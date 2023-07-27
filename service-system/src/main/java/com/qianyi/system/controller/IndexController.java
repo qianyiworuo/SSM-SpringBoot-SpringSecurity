@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Api(tags = "登录主页接口")
@@ -24,6 +26,7 @@ import java.util.Map;
 public class IndexController {
     @Autowired
     private SysUserService sysUserService;
+    private List<String> lstStr;
 
     /**
      * 登录接口
@@ -34,7 +37,8 @@ public class IndexController {
     public Result login(@RequestBody LoginVo loginVo){
         //1.根据username查询数据
         SysUser sysUser = sysUserService.getByUsername(loginVo.getUsername());
-
+        lstStr = new ArrayList<>();
+        lstStr.add(sysUser.getUsername());
         //2.数据是否为空
         if(sysUser == null){
             throw new QianyiException(ResultCodeEnum.ACCOUNT_ERROR);

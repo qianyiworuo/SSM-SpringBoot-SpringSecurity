@@ -3,14 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>qianyi-auth-parent</artifactId>
+        <artifactId>common</artifactId>
         <groupId>com.qianyi</groupId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>service-system</artifactId>
     <packaging>jar</packaging>
+
+    <artifactId>spring-security</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -20,44 +20,24 @@
     <dependencies>
         <dependency>
             <groupId>com.qianyi</groupId>
-            <artifactId>service-util</artifactId>
+            <artifactId>common-util</artifactId>
             <version>1.0</version>
         </dependency>
-
         <dependency>
             <groupId>com.qianyi</groupId>
-            <artifactId>spring-security</artifactId>
+            <artifactId>model</artifactId>
             <version>1.0</version>
         </dependency>
-
+        <!-- Spring Security依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-<!-- 代码生成器-->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.4.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-engine-core</artifactId>
-            <version>2.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <scope>provided </scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.3.6.RELEASE</version>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

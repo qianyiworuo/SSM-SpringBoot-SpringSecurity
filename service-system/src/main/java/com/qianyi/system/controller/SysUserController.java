@@ -47,7 +47,7 @@ public class SysUserController {
     @PostMapping("/save")
     public Result saveUser(@RequestBody SysUser sysUser){
         //把输入的用户密码进行MD5加密
-        String md5Upper = MD5.MD5Upper(sysUser.getPassword());
+        String md5Upper = MD5.MD5Lower(sysUser.getPassword());
         sysUser.setPassword(md5Upper);
         boolean isSave = sysUserService.save(sysUser);
         if(isSave){
