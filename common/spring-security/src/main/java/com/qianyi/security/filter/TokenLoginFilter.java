@@ -6,7 +6,7 @@ import com.qianyi.common.result.ResultCodeEnum;
 import com.qianyi.common.utils.JwtHelper;
 import com.qianyi.common.utils.ResponseUtil;
 import com.qianyi.model.vo.LoginVo;
-import com.qianyi.security.custom.CustomUser;
+import com.qianyi.security.custom.LoginUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -53,9 +53,9 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 											Authentication auth) throws IOException, ServletException {
 		//获取认证对象
-		CustomUser customUser = (CustomUser) auth.getPrincipal();
+		LoginUser loginUser = (LoginUser) auth.getPrincipal();
 		//生成token
-		String token = JwtHelper.createToken(customUser.getSysUser().getId(), customUser.getSysUser().getUsername());
+		String token = JwtHelper.createToken(loginUser.getSysUser().getId(), loginUser.getSysUser().getUsername());
 		//返回
 		Map<String, Object> map = new HashMap<>();
 		map.put("token", token);
