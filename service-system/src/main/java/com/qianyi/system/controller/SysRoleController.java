@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,6 +47,7 @@ public class SysRoleController {
      * @param id
      * @return
      */
+    @PreAuthorize("hasAuthority('bnt.sysRole.remove')")
     @ApiOperation("删除单个角色接口")
     @DeleteMapping("/remove/{id}")
     //restful风格
@@ -64,6 +66,7 @@ public class SysRoleController {
      * 条件分页查询角色接口
      * @return
      */
+    @PreAuthorize("hasAuthority('bnt.sysRole.list')")
     @ApiOperation("条件分页查询角色接口")
     @GetMapping("/{page}/{limit}")
     public Result WrapperQueryPage(
@@ -85,6 +88,7 @@ public class SysRoleController {
      * @param sysRole
      * @return
      */
+    @PreAuthorize("hasAuthority('bnt.sysRole.add')")
     @ApiOperation("新增角色接口")
     @PostMapping("/save")
     public Result saveRole(@RequestBody SysRole sysRole){
@@ -98,6 +102,7 @@ public class SysRoleController {
     /**
      * 修改-根据ID查询
      */
+    @PreAuthorize("hasAuthority('bnt.sysRole.list')")
     @ApiOperation("根据ID查询角色接口")
     @GetMapping("/findRoleById/{id}")
     public Result findRoleById(
@@ -109,6 +114,7 @@ public class SysRoleController {
     /**
      * 修改-执行修改动作
      */
+    @PreAuthorize("hasAuthority('bnt.sysRole.update')")
     @ApiOperation("根据ID修改角色接口")
     @PutMapping("/update")
     public Result updateById(@RequestBody SysRole sysRole){
@@ -123,6 +129,7 @@ public class SysRoleController {
      * 批量删除
      * json数组----Java的List集合
      */
+    @PreAuthorize("hasAuthority('bnt.sysRole.remove')")
     @ApiOperation("批量删除角色接口")
     @DeleteMapping("/batchRemove")
     public Result batchRemove(@RequestBody List<Long> ids){

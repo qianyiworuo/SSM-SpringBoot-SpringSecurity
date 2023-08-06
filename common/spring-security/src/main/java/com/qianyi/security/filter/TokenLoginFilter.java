@@ -1,12 +1,17 @@
 package com.qianyi.security.filter;
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qianyi.common.result.Result;
 import com.qianyi.common.result.ResultCodeEnum;
+import com.qianyi.common.utils.IpUtil;
 import com.qianyi.common.utils.JwtHelper;
 import com.qianyi.common.utils.ResponseUtil;
+import com.qianyi.model.system.SysLoginLog;
 import com.qianyi.model.vo.LoginVo;
 import com.qianyi.security.custom.LoginUser;
+import com.qianyi.security.service.LoginLogService;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,8 +33,12 @@ import java.util.Map;
  * </p>
  */
 public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
+	private RedisTemplate redisTemplate;
+	private LoginLogService loginLogService;
 	//构造方法
-	public TokenLoginFilter(AuthenticationManager authenticationManager) {
+	public TokenLoginFilter(AuthenticationManager authenticationManager, RedisTemplate redisTemplate, LoginLogService loginLogService) {
+		this.redisTemplate = redisTemplate;
+		this.loginLogService = loginLogService;
 		this.setAuthenticationManager(authenticationManager);
 		this.setPostOnly(false);
 		//指定登录接口及提交方式，可以指定任意路径
@@ -56,6 +65,10 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
 		LoginUser loginUser = (LoginUser) auth.getPrincipal();
 		//生成token
 		String token = JwtHelper.createToken(loginUser.getSysUser().getId(), loginUser.getSysUser().getUsername());
+		//保存权限数据
+		redisTemplate.opsForValue().set(loginUser.getUsername(), JSON.toJSONString(loginUser.getAuthorities()));
+		//保存登录数据
+		loginLogService.LoginLogRecord(loginUser.getSysUser().getUsername(), IpUtil.getIpAddress(request), 1, "登录成功");
 		//返回
 		Map<String, Object> map = new HashMap<>();
 		map.put("token", token);
