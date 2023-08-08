@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianyi.system.mapper.SysLoginLogMapper">
+<!--条件分页查询-->
+    <resultMap id="loginLogPage" type="com.qianyi.model.system.SysLoginLog" autoMapping="true"/>
+    <select id="selectPage" resultMap="loginLogPage">
+        SELECT id, username, ipaddr, status, msg, access_time, create_time, update_time, is_deleted
+        FROM sys_login_log
+        <where>
+            <if test="vo.username != null and vo.username != ''">
+                username LIKE CONCAT('%', #{vo.username}, '%')
+            </if>
+            AND is_deleted = 0
+        </where>
+        ORDER BY id DESC
+    </select>
+</mapper>
