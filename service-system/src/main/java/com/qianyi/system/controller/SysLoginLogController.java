@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "用户登录日志接口")
 @RestController
-@RequestMapping("/admin/system/sysLoginLog")
+@RequestMapping("/admin/system/log/sysLoginLog")
 public class SysLoginLogController {
 	@Autowired
 	private LoginLogService sysLoginLogService;

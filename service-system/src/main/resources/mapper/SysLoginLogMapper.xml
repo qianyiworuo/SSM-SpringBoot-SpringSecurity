@@ -10,7 +10,13 @@
         FROM sys_login_log
         <where>
             <if test="vo.username != null and vo.username != ''">
-                username LIKE CONCAT('%', #{vo.username}, '%')
+                AND username LIKE CONCAT('%', #{vo.username}, '%')
+            </if>
+            <if test="vo.createTimeBegin != null and vo.createTimeBegin != ''">
+                AND create_time >= #{vo.createTimeBegin}
+            </if>
+            <if test="vo.createTimeEnd != null and vo.createTimeEnd != ''">
+                AND create_time &lt;= #{vo.createTimeEnd}
             </if>
             AND is_deleted = 0
         </where>
