@@ -34,8 +34,6 @@ public class SysLoginLogController {
 		IPage<SysLoginLog> pageModel = sysLoginLogService.selectPage(pageParam, sysLoginLogQueryVo);
 		Result<IPage<SysLoginLog>> result = Result.ok(pageModel);
 		return result;
-
-
 	}
 
 }
