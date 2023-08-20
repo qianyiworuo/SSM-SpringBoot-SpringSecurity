@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "用户登录日志接口")
 @RestController
-@RequestMapping("/admin/system/log/sysLoginLog")
+@RequestMapping("/admin/system/sysLoginLog")
 public class SysLoginLogController {
 	@Autowired
 	private LoginLogService sysLoginLogService;
@@ -30,8 +30,8 @@ public class SysLoginLogController {
 			@PathVariable Long limit,
 			SysLoginLogQueryVo sysLoginLogQueryVo){
 		//创建MybatisPlus分页对象
-		Page<Object> pageParam = new Page<>(page, limit);
-		IPage<SysLoginLog> pageModel = sysLoginLogService.selectPage(pageParam, sysLoginLogQueryVo);
+		Page<Object> params = new Page<>(page, limit);
+		IPage<SysLoginLog> pageModel = sysLoginLogService.selectPage(params, sysLoginLogQueryVo);
 		Result<IPage<SysLoginLog>> result = Result.ok(pageModel);
 		return result;
 	}

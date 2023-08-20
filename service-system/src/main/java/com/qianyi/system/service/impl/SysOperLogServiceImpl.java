@@ -37,7 +37,7 @@ public class SysOperLogServiceImpl implements OperLogService {
 		}
 		if(!StringUtils.isEmpty(operName)){
 
-			lambdaQueryWrapper.like(SysOperLog::getOperName,operName);
+			lambdaQueryWrapper.or().like(SysOperLog::getOperName,operName);
 		}
 		if(!StringUtils.isEmpty(createTimeBegin)){
 
