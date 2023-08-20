@@ -30,8 +30,8 @@ public class SysOperLogController {
             @PathVariable Long limit,
             SysOperLogQueryVo sysOperLogQueryVo){
         //创建MybatisPlus分页对象
-        Page<Object> pageParam = new Page<>(page, limit);
-        IPage<SysOperLog> pageModel = operLogService.selectPage(pageParam, sysOperLogQueryVo);
+        //Page<Object> pageParam = new Page<>(page, limit);
+        IPage<SysOperLog> pageModel = operLogService.selectPage(page, limit, sysOperLogQueryVo);
         return Result.ok(pageModel);
     }
 

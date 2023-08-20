@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.qianyi.model.system.SysOperLog;
 import com.qianyi.model.vo.SysOperLogQueryVo;
 
-public interface OperLogService extends IService<SysOperLog> {
+public interface OperLogService{
     public void saveSysLog(SysOperLog sysOperLog);
 
-    IPage<SysOperLog> selectPage(Page<Object> pageParam, SysOperLogQueryVo sysOperLogQueryVo);
+    IPage<SysOperLog> selectPage(Long page, Long limit, SysOperLogQueryVo sysOperLogQueryVo);
 }
